@@ -3,8 +3,6 @@
 import os
 
 produtos = []
-
-
 def ler_float_positivo(mensagem):
     while True:
         try:
@@ -15,7 +13,6 @@ def ler_float_positivo(mensagem):
             return valor
         except ValueError:
             print("Digite um numero valido!")
-
 
 def ler_int_nao_negativo(mensagem):
     while True:
@@ -28,18 +25,16 @@ def ler_int_nao_negativo(mensagem):
         except ValueError:
             print("Digite um numero inteiro valido!")
 
-
 def adicionar_produto():
-    nome = input("Nome do produto: ").strip()
-    categoria = input("Categoria: ").strip()
+    nome = input("Nome do produto:")
+    categoria = input("Categoria:")
 
     if not nome or not categoria:
         print("Nome e categoria nao podem estar vazios!")
         return False
 
-    preco = ler_float_positivo("Preco: ")
-    quantidade = ler_int_nao_negativo("Quantidade: ")
-
+    preco = ler_float_positivo("Preco:")
+    quantidade = ler_int_nao_negativo("Quantidade:")
     produto = {
         "nome": nome,
         "categoria": categoria,
@@ -49,7 +44,6 @@ def adicionar_produto():
     produtos.append(produto)
     print("Produto adicionado com sucesso!")
     return True
-
 
 def listar_produtos():
     if not produtos:
@@ -63,14 +57,11 @@ def listar_produtos():
             f"Preco: {produto['preco']:.2f} | Quantidade: {produto['quantidade']}"
         )
 
-
 def atualizar_quantidade():
     if not produtos:
         print("Nenhum produto cadastrado para atualizar!")
         return False
-
     listar_produtos()
-
     while True:
         try:
             indice = int(input("Escolha o numero do produto para atualizar: "))
@@ -80,16 +71,12 @@ def atualizar_quantidade():
             break
         except ValueError:
             print("Digite um numero inteiro valido!")
-
     produto = produtos[indice - 1]
-
     operacao = input("Deseja aumentar ou reduzir? (A/R): ").strip().upper()
     if operacao not in ("A", "R"):
         print("Opcao invalida! Use A para aumentar ou R para reduzir.")
         return False
-
     valor = ler_int_nao_negativo("Informe a quantidade para alterar: ")
-
     if operacao == "A":
         produto["quantidade"] += valor
     else:
@@ -101,17 +88,14 @@ def atualizar_quantidade():
     print("Quantidade atualizada com sucesso!")
     return True
 
-
 def ordenar_produtos():
     if not produtos:
         print("Nenhum produto para ordenar!")
         return False
-
     print("Ordenar por:")
     print("1. Preco")
     print("2. Quantidade")
-    criterio = input("Escolha (1-2): ").strip()
-
+    criterio = input("Escolha (1-2): ")
     if criterio == "1":
         chave = "preco"
     elif criterio == "2":
@@ -119,12 +103,10 @@ def ordenar_produtos():
     else:
         print("Opcao invalida!")
         return False
-
-    ordem = input("Ordem crescente ou decrescente? (C/D): ").strip().upper()
+    ordem = input("Ordem crescente ou decrescente? (C/D): ").upper()
     if ordem not in ("C", "D"):
         print("Opcao invalida! Use C para crescente ou D para decrescente.")
         return False
-
     reverso = ordem == "D"
     produtos.sort(key=lambda produto: produto[chave], reverse=reverso)
     print("Produtos ordenados com sucesso!")
@@ -138,6 +120,7 @@ def salvar_estoque(nome_arquivo="estoque.txt"):
 
     try:
         with open(nome_arquivo, "w", encoding="utf-8") as arquivo:
+            arquivo.write("NOME,CATEGORIA,PRECO,QUANTIDADE\n")
             for produto in produtos:
                 linha = (
                     f"{produto['nome']},{produto['categoria']},"
@@ -158,7 +141,6 @@ def carregar_estoque(nome_arquivo="estoque.txt"):
     if not os.path.exists(nome_arquivo):
         print(f"Arquivo '{nome_arquivo}' nao encontrado.")
         return False
-
     try:
         produtos_carregados = []
         with open(nome_arquivo, "r", encoding="utf-8") as arquivo:
@@ -166,10 +148,12 @@ def carregar_estoque(nome_arquivo="estoque.txt"):
                 linha = linha.strip()
                 if not linha:
                     continue
-
                 partes = [parte.strip() for parte in linha.split(",")]
                 if len(partes) != 4:
                     print(f"Linha {numero_linha} ignorada: formato invalido.")
+                    continue
+
+                if numero_linha == 1 and [p.upper() for p in partes] == ["NOME", "CATEGORIA", "PRECO", "QUANTIDADE"]:
                     continue
 
                 nome, categoria, preco_texto, quantidade_texto = partes
@@ -191,7 +175,6 @@ def carregar_estoque(nome_arquivo="estoque.txt"):
                         "quantidade": quantidade,
                     }
                 )
-
         produtos.clear()
         produtos.extend(produtos_carregados)
         print("Estoque carregado com sucesso!")
@@ -202,7 +185,6 @@ def carregar_estoque(nome_arquivo="estoque.txt"):
     except OSError as erro:
         print(f"Erro de leitura ou gravacao: {erro}")
         return False
-
 
 def menu_principal():
     print("Bem-vindo ao Sistema de Gestao de Estoque!")

@@ -3,8 +3,6 @@
 import os
 
 livros = []
-
-
 def ler_inteiro_positivo(mensagem):
     while True:
         try:
@@ -18,8 +16,8 @@ def ler_inteiro_positivo(mensagem):
 
 
 def adicionar_livro():
-    titulo = input("Titulo do livro: ").strip()
-    autor = input("Autor: ").strip()
+    titulo = input("Titulo do livro: ")
+    autor = input("Autor: ")
 
     if not titulo or not autor:
         print("Titulo e autor nao podem estar vazios!")
@@ -60,7 +58,7 @@ def ordenar_livros():
     print("Ordenar por:")
     print("1. Ano de publicacao")
     print("2. Numero de paginas")
-    criterio = input("Escolha (1-2): ").strip()
+    criterio = input("Escolha (1-2): ")
 
     if criterio == "1":
         chave = "ano"
@@ -70,7 +68,7 @@ def ordenar_livros():
         print("Opcao invalida!")
         return False
 
-    ordem = input("Ordem crescente ou decrescente? (C/D): ").strip().upper()
+    ordem = input("Ordem crescente ou decrescente? (C/D): ")
     if ordem not in ("C", "D"):
         print("Opcao invalida! Use C para crescente ou D para decrescente.")
         return False
@@ -88,6 +86,7 @@ def salvar_livros(nome_arquivo="biblioteca.txt"):
 
     try:
         with open(nome_arquivo, "w", encoding="utf-8") as arquivo:
+            arquivo.write("TITULO,AUTOR,ANO,PAGINAS\n")
             for livro in livros:
                 linha = f"{livro['titulo']},{livro['autor']},{livro['ano']},{livro['paginas']}\n"
                 arquivo.write(linha)
@@ -117,6 +116,9 @@ def carregar_livros(nome_arquivo="biblioteca.txt"):
                 partes = [parte.strip() for parte in linha.split(",")]
                 if len(partes) != 4:
                     print(f"Linha {numero_linha} ignorada: formato invalido.")
+                    continue
+
+                if numero_linha == 1 and [p.upper() for p in partes] == ["TITULO", "AUTOR", "ANO", "PAGINAS"]:
                     continue
 
                 titulo, autor, ano_texto, paginas_texto = partes
@@ -152,7 +154,7 @@ def carregar_livros(nome_arquivo="biblioteca.txt"):
 
 
 def menu_principal():
-    print("Bem-vindo a Biblioteca Digital!")
+    print("Bem-vindo a Biblioteca de Livros Digitais!")
 
     while True:
         print("\nEscolha uma opcao:")
@@ -163,7 +165,7 @@ def menu_principal():
         print("5. Carregar dados do arquivo")
         print("6. Sair")
 
-        opcao = input("> ").strip()
+        opcao = input("> ")
 
         if opcao == "1":
             adicionar_livro()
