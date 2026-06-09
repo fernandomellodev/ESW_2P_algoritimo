@@ -1,5 +1,11 @@
 import random
 import time
+
+"""Lógica: Compara os pares e joga o maior pra frente
+Vantagem: Fácil implementação e detecção de lista ordenada.
+Desvantagem: Elevado número de trocas e comparações."""
+
+
 def bubble_sort(lista):
     n = len(lista)
 

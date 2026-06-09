@@ -1,7 +1,10 @@
 import random
 import time
 
-
+"""Lógica: Busca o menor elemento no array e o coloca na primeira
+posição. Repete para o restante. 
+Vantagem: Simples, poucas trocas de memória.
+Desvantagem: Ineficiente para listas grandes."""
 
 def selection_sort(lista):
     n = len(lista)

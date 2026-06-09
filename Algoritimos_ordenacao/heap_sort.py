@@ -1,6 +1,14 @@
 import random   
 import time
 
+
+"""Lógica: Transforma a lista em um Max-Heap (árvore binária) e
+remove o maior elemento repetidamente.
+Vantagem: Não usa memória extra e garante O (nlogn).
+Desvantagem: Não é estável e é mais complexo de
+implementar."""
+
+
 def ajustar_heap(lista, tamanho, raiz):
     maior = raiz
     esquerda = 2 * raiz + 1

@@ -1,7 +1,11 @@
 import random
 import time
 
-
+""""Lógica: Escolhe um pivô e particiona a lista entre menores e
+maiores que o pivô.
+Vantagem: Extremamente rápido na média e cache-friendly.
+Desvantagem: Pior caso quadrático se o pivô for mal
+escolhido."""
 
 def quick_sort(lista):
     if len(lista) <= 1:

@@ -2,6 +2,12 @@ import random
 import time
 
 
+"""Lógica: Constrói a lista ordenada inserindo um elemento por vez
+na posição correta (como cartas).
+Vantagem: Eficiente para listas pequenas ou quase
+ordenadas.
+Desvantagem: Custo quadrático no pior caso."""
+
 def insertion_sort(lista):
     for i in range(1, len(lista)):
         chave = lista[i]

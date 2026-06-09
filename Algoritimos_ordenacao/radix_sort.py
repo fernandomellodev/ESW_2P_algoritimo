@@ -2,6 +2,12 @@
 import random   
 import time
 
+"""Lógica: Ordena dígito por dígito, começando pela unidade até a
+casa decimal mais alta.
+Vantagem: Excelente para números inteiros grandes.
+Desvantagem: Complexidade depende do número de dígitos."""
+
+
 def counting_sort_por_digito(lista, casa):
     tamanho = len(lista)
     resultado = [0] * tamanho

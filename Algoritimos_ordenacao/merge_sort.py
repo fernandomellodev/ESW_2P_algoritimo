@@ -2,6 +2,12 @@ import random
 import time
 
 
+
+"""Lógica: Divide a lista recursivamente até ter 1 elemento e depois
+intercala (merge) ordenadamente.
+Vantagem: Estável e desempenho garantido.
+Desvantagem: Requer memória extra O(n)"""
+
 def merge_sort(lista):
     if len(lista) <= 1:
         return lista
